@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="slide">
+          <div class="img">
+              <img src="" alt="" class="image">
+          </div>
+          <div class="btn">
+            <button onclick="prev()">prev</button>
+              <button onclick="next()">next</button>
+          </div>
+        </div>
+    </div>
+
+    <style>
+        .wrapper{
+            width: 700px;
+            height:500px;
+            margin: 0 auto;
+        }
+        .img{
+            width: 700px;
+            height: 500px;
+           
+        }
+        .img img {
+            object-fit: cover;
+            width: 100%;
+            min-height: 100%;
+        }
+        .btn {
+            display: flex;
+            justify-content:space-between;
+        }
+    </style>
+</body>
+<script>
+    let images = [
+        'https://jes.edu.vn/wp-content/uploads/2017/10/h%C3%ACnh-%E1%BA%A3nh.jpg',
+        'https://media-cdn.tripadvisor.com/media/photo-s/15/a4/9b/77/legacy-hotel-at-img-academy.jpg',
+        'https://storage.googleapis.com/pik-buk/inspitrip/2019_1dae4334-8ae5-4f4f-bcbb-ae9c9a836706.jpg?w=800'
+    ]
+     document.querySelector('.image').src =images[0];
+     function next (){
+        let image = document.querySelector('.image');
+        let index = images.indexOf(image.src);
+        if(index == images.length -1){
+            image.src = images[0];
+        }else{
+            image.src = images[index + 1];
+        }
+     }
+     function prev (){
+            let image = document.querySelector('.image');
+            let index = images.indexOf(image.src);
+            if(index > 0){
+                image.src = images[index - 1];
+            }
+            else{
+                image.src = images[images.length -1];
+            }
+     }
+</script>
+</html>

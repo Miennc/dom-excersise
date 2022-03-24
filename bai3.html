@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <button onclick="copy()">copy</button>
+        <div class="item" >
+               <ul><li>1</li></ul>
+               <ul><li>2</li></ul>
+               <ul><li>3</li></ul>
+               <ul><li>4</li></ul>
+        </div>
+        <div class="item">
+    
+        </div>
+        <div class="item">
+        </div>
+    </div>
+    
+</body>
+<script>
+function copy(){
+    let item = document.getElementsByClassName('item')[0];
+    let ul = item.getElementsByTagName('ul');
+    let ul2 = document.getElementsByClassName('item')[2];
+    for(let i = 1; i < ul.length+1; i++){
+        let li = document.createElement('li');
+        li.innerHTML =  i;
+        ul2.appendChild(li);
+    }
+}
+</script>
+</html>
