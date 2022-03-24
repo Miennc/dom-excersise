@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="myProgress">
+            <div id="myBar">1 giây</div>
+        </div>
+        <p class="question">
+            Câu 1. PHP STAND FOR ?
+        </p>
+
+        <div class="answers">
+            <div class="answer">A. Hypertext Preprocessor</div>
+            <div class="answer">B. Personal Home Page</div>
+            <div class="answer">C. Perl Hypertext Preprocessor</div>
+            <div class="answer">D. Professional Home Page </div>
+        </div>
+    </div>
+    <style>
+        .wrapper {
+            width: 70%;
+            margin: 20px auto;
+        }
+
+        #myProgress {
+            width: 50%;
+            background-color: #ddd;
+            border-radius: 15px;
+            margin:0 auto;
+        }
+
+        #myBar {
+            width: 100%;
+            border-radius: 15px;
+            height: 30px;
+            background-color: #ff9409;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+
+        .wrapper .score {
+            text-align: center;
+            font-size: 40px;
+        }
+
+        .wrapper .question {
+            font-size: 28px;
+        }
+
+        .wrapper .answers .answer {
+            float: left;
+            width: 45%;
+            text-align: center;
+            border: 1px solid #1e201f;
+            background-color: yellow;
+            box-sizing: border-box;
+            margin: 10px;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .wrapper .answers .answer:hover {
+            background: rgb(171, 172, 177);
+            color: white;
+        }
+    </style>
+</body>
+<script>
+    (
+        function () {
+            let i = 0;
+            if (i == 0) {
+                i = 1;
+                let elem = document.getElementById("myBar");
+                let width = 1;
+                let id = setInterval(frame, 400);
+                function frame() {
+                    if (width >= 50) {
+                        clearInterval(id);
+                        i = 0;
+                        alert("hết thời gian")
+                    } else {
+                        width++;
+                        elem.style.width = width + "1px";
+                        elem.innerHTML = width + "s";
+                    }
+                }
+            }
+
+        }
+    )();
+    const questions = [
+        {
+            question: 'PHP stand for ?',
+            answers: [
+                {
+                    text: 'Hypertext Preprocessor',
+                    correct: true
+                },
+                {
+                    text: 'Personal Home Page',
+                    correct: false
+                },
+                {
+                    text: 'Perl Hypertext Preprocessor',
+                    correct: false
+                },
+                {
+                    text: 'Professional Home Page ',
+                    correct: false
+                }
+            ]
+        },
+        {
+            question: 'JS stand for ?',
+            answers: [
+                {
+                    text: 'JavaScript',
+                    correct: true
+                },
+                {
+                    text: 'Java Secure',
+                    correct: false
+                },
+                {
+                    text: 'JavaScript Secure',
+                    correct: false
+                },
+                {
+                    text: 'JavaScript Senior',
+                    correct: false
+                }
+            ]
+        }
+    ]
+
+let totalScore = 0;
+const scoreEchCorrectAnswer = 10;
+let questionIndex = 0;
+function loadQuestion(){
+    const questions = questions[questionIndex];
+    document.querySelector('.wrapper .question').innerHTML = questions.question;
+    const answersUI = document.querySelector('.wrapper .answers .answer');
+    answersUI.innerHTML = '';
+    const answers = questions.correct;
+    const correctAnswer = question.correct;
+    
+
+ 
+}
+
+
+</script>
+
+</html>
