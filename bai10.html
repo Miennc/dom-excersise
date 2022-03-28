@@ -10,9 +10,10 @@
 
 <body>
     <div class="wrapper">
-        <div id="myProgress">
-            <div id="myBar">1 giây</div>
+        <div class="myProgress">
+            <div class="myBar">1 giây</div>
         </div>
+        <div class="score">Score: <span>0</span></div>
         <p class="question">
             Câu 1. PHP STAND FOR ?
         </p>
@@ -30,14 +31,14 @@
             margin: 20px auto;
         }
 
-        #myProgress {
+        .myProgress {
             width: 50%;
             background-color: #ddd;
             border-radius: 15px;
-            margin:0 auto;
+            margin: 0 auto;
         }
 
-        #myBar {
+        .myBar {
             width: 100%;
             border-radius: 15px;
             height: 30px;
@@ -75,90 +76,110 @@
         }
     </style>
 </body>
-<script>
-    (
-        function () {
-            let i = 0;
-            if (i == 0) {
-                i = 1;
-                let elem = document.getElementById("myBar");
-                let width = 1;
-                let id = setInterval(frame, 400);
-                function frame() {
-                    if (width >= 50) {
-                        clearInterval(id);
-                        i = 0;
-                        alert("hết thời gian")
-                    } else {
-                        width++;
-                        elem.style.width = width + "1px";
-                        elem.innerHTML = width + "s";
-                    }
-                }
-            }
 
-        }
-    )();
+<script>
     const questions = [
         {
-            question: 'PHP stand for ?',
+            question: "php stand for",
             answers: [
-                {
-                    text: 'Hypertext Preprocessor',
-                    correct: true
-                },
-                {
-                    text: 'Personal Home Page',
-                    correct: false
-                },
-                {
-                    text: 'Perl Hypertext Preprocessor',
-                    correct: false
-                },
-                {
-                    text: 'Professional Home Page ',
-                    correct: false
-                }
-            ]
+                "A.Hypertext Preprocessor'",
+                "B.Personal Home Page'",
+                "C.Perl Hypertext Preprocessor",
+                "D.Professional Home Page "
+            ],
+            correctAnswer: 0
         },
         {
-            question: 'JS stand for ?',
+            question: "js stand for",
             answers: [
-                {
-                    text: 'JavaScript',
-                    correct: true
-                },
-                {
-                    text: 'Java Secure',
-                    correct: false
-                },
-                {
-                    text: 'JavaScript Secure',
-                    correct: false
-                },
-                {
-                    text: 'JavaScript Senior',
-                    correct: false
-                }
-            ]
+                "A .JavaScript",
+                "B.Java Secure",
+                "C.javascrip sure",
+                "D.java scrip senior"
+            ],
+            correctAnswer: 0
         }
     ]
 
-let totalScore = 0;
-const scoreEchCorrectAnswer = 10;
-let questionIndex = 0;
-function loadQuestion(){
-    const questions = questions[questionIndex];
-    document.querySelector('.wrapper .question').innerHTML = questions.question;
-    const answersUI = document.querySelector('.wrapper .answers .answer');
-    answersUI.innerHTML = '';
-    const answers = questions.correct;
-    const correctAnswer = question.correct;
-    
+    let totalScore = 0;
+    const scoreEchCorrectAnswer = 10;
+    let questionIndex = 0;
 
- 
-}
+    function loadQuestion() {
+        const question = questions[questionIndex];
+        const questionUI = document.querySelector('.wrapper .question');
+        questionUI.innerHTML = question.question;
+        const answersUI = document.querySelector('.wrapper .answers');
+        answersUI.innerHTML = '';
+        const answers = question.answers;
+        const correctAnswer = question.correctAnswer;
+        for (let i = 0; i < answers.length; i++) {
+            let newElem = document.createElement(`div`);
+            newElem.classList.add('answer');
+            newElem.innerHTML = answers[i];
+            newElem.addEventListener('click', function () {
+                if (i == correctAnswer) {
+                    alert("Bạn đã trả lời đúng");
+                    totalScore += scoreEchCorrectAnswer;
+                    const scoreUI = document.querySelector('.score span');
+                    scoreUI.innerHTML = totalScore;
+                    questionIndex++;
+                    if (questionIndex >= questions.length) {
+                        alert("Bạn đã hoàn thành bài test");
+                        answersUI.innerHTML = '';
+                        questionUI.innerHTML = '';
+                        document.querySelector('.myBar').style.display = 'none';
+                        document.querySelector('.score').innerHTML = `số điểm của bạn là ${totalScore}
+                        <br> 1 bạn trả lời: <br>
+                        đáp án: ${questions[0].answers[0]}<br> 
+                        2 bạn trả lời:  <br> 
+                         đáp án: ${questions[1].answers[0]}
+                         `;
+                        return;
+                    }
+                    loadQuestion();
+                } else {
+                    alert("Bạn đã trả lời sai");
+                    answersUI.innerHTML = '';
 
+                }
+            })
+            answersUI.append(newElem);
+            (
+                function move() {
+                    let elem = document.querySelector(".myBar");
+                    let width = 0;
+                    let id = setInterval(frame, 1000);
+                    function frame() {
+                        if (width >= 5) {
+                            questionIndex++;
+                            loadQuestion();
+                            clearInterval(id);
+
+                        }
+                        else {
+                            width++;
+                            elem.style.width = width + "10px";
+                            elem.innerHTML = width + "s";
+                        }
+                    }
+
+                }
+            )();
+        }
+        setTimeout(() => {
+            answersUI.innerHTML = '';
+            questionUI.innerHTML = '';
+            document.querySelector('.myBar').style.display = 'none';
+            document.querySelector('.score').innerHTML = `số điểm của bạn là ${totalScore}
+            <br> 1 bạn trả lời:         <br>
+             đáp án: ${questions[0].answers[0]}  <br> 
+             2 bạn trả lời:            <br> 
+             đáp án: ${questions[1].answers[0]}
+            `;
+        }, questions.length * 6000);
+    }
+    loadQuestion();
 
 </script>
 
